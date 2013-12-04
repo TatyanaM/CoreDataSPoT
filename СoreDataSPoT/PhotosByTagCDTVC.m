@@ -100,15 +100,19 @@
             {
               //is photo in cache already?
              NSURL *imageURL = [SpotCache checkPhotoInCache:photo];
-             if (!imageURL)
-             {
-              //load photo from Flickr
-                 [segue.destinationViewController performSelector:@selector(setImageURL:) withObject:[NSURL URLWithString:photo.imageURL]];
-             } else
-             {
-               //load photo from cache
-                 [segue.destinationViewController performSelector:@selector(setImageURL:) withObject:imageURL];
-             }
+                if (imageURL) {
+                    photo.imageURL = [NSString stringWithFormat:@"%@",imageURL];
+                }
+                [segue.destinationViewController performSelector:@selector(setPhoto:) withObject:photo];
+//             if (!imageURL)
+//             {
+//              //load photo from Flickr
+//                 [segue.destinationViewController performSelector:@selector(setImageURL:) withObject:[NSURL URLWithString:photo.imageURL]];
+//             } else
+//             {
+//               //load photo from cache
+//                 [segue.destinationViewController performSelector:@selector(setImageURL:) withObject:imageURL];
+//             }
              [segue.destinationViewController setTitle:photo.title];
              [SpotCache cacheData:photo];
             }
